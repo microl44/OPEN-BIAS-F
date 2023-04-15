@@ -3,7 +3,7 @@ cls
 Set Sleep=0
 :start
 if %Sleep% == 20 ( goto end )
-roslaunch ..\a-star_complete.launch models:=1
+roslaunch ..\main.launch algtype:=a-star models:=1
 echo Finished the test launch file
 Set /A Sleep+=1
 echo %Sleep%
