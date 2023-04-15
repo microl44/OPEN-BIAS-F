@@ -1,0 +1,69 @@
+<launch>
+  <env name="GAZEBO_PLUGIN_PATH" value="$(find gazebo_plugins)"/>
+  <env name="GAZEBO_MODEL_PATH" value="$(find turtlebot3_gazebo)/models"/>
+  <arg name="model" default="$(env TURTLEBOT3_MODEL)" doc="model type [burger, waffle, waffle_pi]"/>
+  <arg name="move_forward_only" default="false"/>
+  <arg name="map_file" default="$(find aws_robomaker_small_warehouse_world)/maps/005/map.yaml"/>
+  <arg name="models" default="static"/>
+
+  <include file="$(find aws_robomaker_small_warehouse_world)/launch/small_warehouse.launch">
+    <arg name="mapenv" value="$(arg models)"/>
+    <arg name="gui" value="false"/>
+  </include>
+
+  <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)"/>
+  <include file="$(find turtlebot3_gazebo)/launch/turtlebot3_gazebo_rviz.launch"/>
+  <include file="$(find turtlebot3_navigation)/launch/amcl.launch">
+    <arg name="initial_pose_x" value="-3.2"/>
+    <arg name="initial_pose_y" value="-2.7"/>
+  </include>
+
+  <!-- move_base -->
+  <include file="$(find turtlebot3_navigation)/launch/new_move_base.launch">
+    <arg name="model" value="$(arg model)" />
+    <arg name="move_forward_only" value="$(arg move_forward_only)"/>
+    <arg name="use_quadratic" value="true"/>
+    <arg name="use_dijkstra" value="true"/>
+    <arg name="use_grid_path" value="false"/>
+    <arg name="neutral_cost" value="20"/>
+    <arg name="allow_unknown" value="true"/>
+  </include>
+
+  <node pkg="experiment_node" type="experiment_node" name="experiment_node" output="screen" required="true">
+    <param name="algorithm" type="string" value="dijkstra" />
+    <param name="goal_x" type="double" value="11.0"/>
+    <param name="goal_y" type="double" value="-8.5"/>
+    <param name="env_type" type="string" value="$(arg models)"/>
+    <param name="map_type" type="string" value="complete"/>
+  </node>
+
+  <group if="$(eval arg('models') != 'static')">
+    <node pkg="model_node" type="model_node" name="model_node_1" output="screen">
+      <param name="model_name" value="box_1"/>
+      <param name="direction" value="up/down"/>
+      <param name="distance" value="5.5"/>
+    </node>
+  </group>
+
+  <group if="$(eval arg('models') == 2)">
+    <node pkg="model_node" type="model_node" name="model_node_2" output="screen">
+      <param name="model_name" value="box_2"/>
+      <param name="direction" value="down/up"/>
+      <param name="distance" value="5.5"/>
+    </node>
+  </group>
+
+  <group if="$(eval arg('models') == 3)">
+    <node pkg="model_node" type="model_node" name="model_node_2" output="screen">
+      <param name="model_name" value="box_2"/>
+      <param name="direction" value="down/up"/>
+      <param name="distance" value="5.5"/>
+    </node>
+
+    <node pkg="model_node" type="model_node" name="model_node_3" output="screen">
+      <param name="model_name" value="box_3"/>
+      <param name="direction" value="up/down"/>
+      <param name="distance" value="5.5"/>
+    </node>
+  </group>
+</launch>
