@@ -25,12 +25,22 @@ distance_dict = {'dijkstra': {'complete': {'static': [], '1': [], '2': [], '3': 
 				'a-star': {'complete': {'static': [], '1': [], '2': [], '3': []}, 
 							'mapless': {'static': [], '1': [], '2': [], '3': []}}}
 
-std_dict = {'dijkstra': {'complete': {'static': [], '1': [], '2': [], '3': []}, 
+std_time_dict = {'dijkstra': {'complete': {'static': [], '1': [], '2': [], '3': []}, 
 							'mapless': {'static': [], '1': [], '2': [], '3': []}}, 
 			'a-star': {'complete': {'static': [], '1': [], '2': [], '3': []}, 
 						'mapless': {'static': [], '1': [], '2': [], '3': []}}}
 
-confidence_interval_dict = {'dijkstra': {'complete': {'static': [], '1': [], '2': [], '3': []}, 
+std_distance_dict = {'dijkstra': {'complete': {'static': [], '1': [], '2': [], '3': []}, 
+							'mapless': {'static': [], '1': [], '2': [], '3': []}}, 
+			'a-star': {'complete': {'static': [], '1': [], '2': [], '3': []}, 
+						'mapless': {'static': [], '1': [], '2': [], '3': []}}}
+
+confidence_interval_time_dict = {'dijkstra': {'complete': {'static': [], '1': [], '2': [], '3': []}, 
+								'mapless': {'static': [], '1': [], '2': [], '3': []}}, 
+				'a-star': {'complete': {'static': [], '1': [], '2': [], '3': []}, 
+							'mapless': {'static': [], '1': [], '2': [], '3': []}}}
+
+confidence_interval_distance_dict = {'dijkstra': {'complete': {'static': [], '1': [], '2': [], '3': []}, 
 								'mapless': {'static': [], '1': [], '2': [], '3': []}}, 
 				'a-star': {'complete': {'static': [], '1': [], '2': [], '3': []}, 
 							'mapless': {'static': [], '1': [], '2': [], '3': []}}}
@@ -51,13 +61,10 @@ for i, row in df.iterrows():
 for algorithm in time_dict:
 	for map_value in time_dict[algorithm]:
 		for environment in time_dict[algorithm][map_value]:
-			time_list = time_dict[algorithm][map_value][environment]
-			distance_list = distance_dict[algorithm][map_value][environment]
-			
-			#fig, axes = plt.subplots(6, 10, figsize=(30,30))
-			#print(f"Algorithm: {algorithm}, Map: {map_value}, Environment: {environment}")
-			#for i in range(len(time_list)):
-				#print(f"Time: {time_list[i]}, Distance: {distance_list[i]}")
+			confidence_interval_time_dict[algorithm][map_value][environment] = conf(time_dict[algorithm][map_value][environment])
+			confidence_interval_distance_dict[algorithm][map_value][environment] = conf(distance_dict[algorithm][map_value][environment])
+			std_time_dict[algorithm][map_value][environment] = np.std(time_dict[algorithm][map_value][environment])
+			std_distance_dict[algorithm][map_value][environment] = np.std(distance_dict[algorithm][map_value][environment])
 
 #present graphs regarding distance
 def GraphDistance():
@@ -120,19 +127,29 @@ def printTimeStats():
 	for algorithm in time_dict:
 		for map_value in time_dict[algorithm]:
 			for environment in time_dict[algorithm][map_value]:
-				std_dict[algorithm][map_value][environment].append(np.std(time_dict[algorithm][map_value][environment]))
-				print(algorithm + " " + map_value + " " + environment + " Standard Deviation: " + str(np.std(time_dict[algorithm][map_value][environment])))
-				print(algorithm + " " + map_value + " " + environment + " 95% confidence interval: " + str(conf(time_dict[algorithm][map_value][environment])))
+				print("----------------TIME STATS FOR " + algorithm + " " + map_value + " " + environment + "----------------")
+				print("Time STD: " + str(std_time_dict[algorithm][map_value][environment]))
+				print("Time CNF: " + str(confidence_interval_time_dict[algorithm][map_value][environment]))
 				print("")
-
 #print distance std and 95% conf interval
 def printDistanceStats():
 	for algorithm in distance_dict:
 		for map_value in distance_dict[algorithm]:
 			for environment in distance_dict[algorithm][map_value]:
-				confidence_interval_dict[algorithm][map_value][environment].append(np.std(time_dict[algorithm][map_value][environment]))
-				print(algorithm + " " + map_value + " " + environment + " Standard Deviation: " + str(np.std(distance_dict[algorithm][map_value][environment])))
-				print(algorithm + " " + map_value + " " + environment + " 95% confidence interval: " + str(conf(distance_dict[algorithm][map_value][environment])))
+				print("----------------DISTANCE STATS FOR " + algorithm + " " + map_value + " " + environment + "----------------")
+				print("Distance STD: " + str(std_distance_dict[algorithm][map_value][environment]))
+				print("Distance CNF: " + str(confidence_interval_distance_dict[algorithm][map_value][environment]))
+				print("")
+
+def printBothStats():
+	for algorithm in confidence_interval_time_dict:
+		for map_value in confidence_interval_time_dict[algorithm]:
+			for environment in confidence_interval_time_dict[algorithm][map_value]:
+				print("----------------TIME & DISTANCE STATS FOR " + algorithm + " " + map_value + " " + environment + "----------------")
+				print("Time STD: " + str(std_time_dict[algorithm][map_value][environment]))
+				print("Time CNF: " + str(confidence_interval_time_dict[algorithm][map_value][environment]))
+				print("Distance STD: " + str(std_distance_dict[algorithm][map_value][environment]))
+				print("Distance CNF: " + str(confidence_interval_distance_dict[algorithm][map_value][environment]))
 				print("")
 
 #COMMENT OUT THE FUNCTION YOU'D LIKE TO USE!!!!!!!
@@ -140,3 +157,4 @@ def printDistanceStats():
 #GraphDistance()
 #printTimeStats()
 #printDistanceStats()
+printBothStats()
