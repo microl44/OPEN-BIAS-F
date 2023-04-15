@@ -145,6 +145,7 @@ def printBothStats():
 	for algorithm in confidence_interval_time_dict:
 		for map_value in confidence_interval_time_dict[algorithm]:
 			for environment in confidence_interval_time_dict[algorithm][map_value]:
+				print("")
 				print("----------------TIME & DISTANCE STATS FOR " + algorithm + " " + map_value + " " + environment + "----------------")
 				print("Time STD: " + str(std_time_dict[algorithm][map_value][environment]))
 				print("Time CNF: " + str(confidence_interval_time_dict[algorithm][map_value][environment]))
@@ -153,8 +154,8 @@ def printBothStats():
 				print("")
 
 #COMMENT OUT THE FUNCTION YOU'D LIKE TO USE!!!!!!!
-#GraphTime()
-#GraphDistance()
 #printTimeStats()
 #printDistanceStats()
 printBothStats()
+GraphTime()
+#GraphDistance()
