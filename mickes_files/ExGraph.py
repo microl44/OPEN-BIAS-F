@@ -69,7 +69,7 @@ for algorithm in time_dict:
 #present graphs regarding distance
 def GraphDistance():
 	plotX = [1, 2, 3, 4]
-	ylim = [14, 20]
+	ylim = [14, 24]
 	MD = [avg(distance_dict["dijkstra"]["complete"]["static"]), avg(distance_dict["dijkstra"]["complete"]["1"]), avg(distance_dict["dijkstra"]["complete"]["2"]), avg(distance_dict["dijkstra"]["complete"]["3"])]
 	MA = [avg(distance_dict["a-star"]["complete"]["static"]), avg(distance_dict["a-star"]["complete"]["1"]), avg(distance_dict["a-star"]["complete"]["2"]), avg(distance_dict["a-star"]["complete"]["3"])]
 	UD = [avg(distance_dict["dijkstra"]["mapless"]["static"]), avg(distance_dict["dijkstra"]["mapless"]["1"]), avg(distance_dict["dijkstra"]["mapless"]["2"]), avg(distance_dict["dijkstra"]["mapless"]["3"])]
@@ -97,7 +97,7 @@ def GraphDistance():
 #present graphs regarding time
 def GraphTime():
 	plotX = [1, 2, 3, 4]
-	ylim = [80, 120]
+	ylim = [80, 150]
 	MD = [avg(time_dict["dijkstra"]["complete"]["static"]), avg(time_dict["dijkstra"]["complete"]["1"]), avg(time_dict["dijkstra"]["complete"]["2"]), avg(time_dict["dijkstra"]["complete"]["3"])]
 	MA = [avg(time_dict["a-star"]["complete"]["static"]), avg(time_dict["a-star"]["complete"]["1"]), avg(time_dict["a-star"]["complete"]["2"]), avg(time_dict["a-star"]["complete"]["3"])]
 	UD = [avg(time_dict["dijkstra"]["mapless"]["static"]), avg(time_dict["dijkstra"]["mapless"]["1"]), avg(time_dict["dijkstra"]["mapless"]["2"]), avg(time_dict["dijkstra"]["mapless"]["3"])]
@@ -128,6 +128,7 @@ def printTimeStats():
 		for map_value in time_dict[algorithm]:
 			for environment in time_dict[algorithm][map_value]:
 				print("----------------TIME STATS FOR " + algorithm + " " + map_value + " " + environment + "----------------")
+				print("Average Time: " + str(avg(time_dict[algorithm][map_value][environment])))
 				print("Time STD: " + str(std_time_dict[algorithm][map_value][environment]))
 				print("Time CNF: " + str(confidence_interval_time_dict[algorithm][map_value][environment]))
 				print("")
@@ -137,6 +138,7 @@ def printDistanceStats():
 		for map_value in distance_dict[algorithm]:
 			for environment in distance_dict[algorithm][map_value]:
 				print("----------------DISTANCE STATS FOR " + algorithm + " " + map_value + " " + environment + "----------------")
+				print("Average Distance: " + str(avg(distance_dict[algorithm][map_value][environment])))
 				print("Distance STD: " + str(std_distance_dict[algorithm][map_value][environment]))
 				print("Distance CNF: " + str(confidence_interval_distance_dict[algorithm][map_value][environment]))
 				print("")
@@ -147,8 +149,10 @@ def printBothStats():
 			for environment in confidence_interval_time_dict[algorithm][map_value]:
 				print("")
 				print("----------------TIME & DISTANCE STATS FOR " + algorithm + " " + map_value + " " + environment + "----------------")
+				print("Average Time: " + str(avg(time_dict[algorithm][map_value][environment])))
 				print("Time STD: " + str(std_time_dict[algorithm][map_value][environment]))
 				print("Time CNF: " + str(confidence_interval_time_dict[algorithm][map_value][environment]))
+				print("Average Distance: " + str(avg(distance_dict[algorithm][map_value][environment])))
 				print("Distance STD: " + str(std_distance_dict[algorithm][map_value][environment]))
 				print("Distance CNF: " + str(confidence_interval_distance_dict[algorithm][map_value][environment]))
 				print("")
@@ -158,4 +162,4 @@ def printBothStats():
 #printDistanceStats()
 printBothStats()
 GraphTime()
-#GraphDistance()
+GraphDistance()
