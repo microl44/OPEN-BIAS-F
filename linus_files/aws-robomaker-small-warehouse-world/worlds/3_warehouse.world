@@ -10,66 +10,24 @@
     </physics>
 
     <model name="box_1">
-         <static>1</static>
+         <include>
+            <uri>model://aws_robomaker_warehouse_ClutteringC_02</uri>
+        </include>
          <pose frame=''>-3.7 -4.4 0.1 0 0 0</pose>
-         <link name="box_link">
-            <collision name='obstacle'>
-               <geometry>
-                  <box>
-                    <size>.2 .2 .2</size>
-                  </box>
-               </geometry>
-            </collision>
-            <visual name="visual">
-               <geometry>
-               <box>
-                  <size>.2 .2 .2</size>
-                </box>
-               </geometry>
-            </visual>
-         </link>
         </model>
 
     <model name="box_2">
-         <static>1</static>
+         <include>
+            <uri>model://aws_robomaker_warehouse_ClutteringC_02</uri>
+        </include>
          <pose frame=''>1.8 -2.5 0.1 0 0 0</pose>
-         <link name="box_link">
-            <collision name='obstacle'>
-               <geometry>
-                  <box>
-                    <size>.2 .2 .2</size>
-                  </box>
-               </geometry>
-            </collision>
-            <visual name="visual">
-               <geometry>
-               <box>
-                  <size>.2 .2 .2</size>
-                </box>
-               </geometry>
-            </visual>
-         </link>
         </model>
 
     <model name="box_3">
-         <static>1</static>
+         <include>
+            <uri>model://aws_robomaker_warehouse_ClutteringC_02</uri>
+        </include>
          <pose frame=''>-3.7 -0.5 0.1 0 0 0</pose>
-         <link name="box_link">
-            <collision name='obstacle'>
-               <geometry>
-                  <box>
-                    <size>.2 .2 .2</size>
-                  </box>
-               </geometry>
-            </collision>
-            <visual name="visual">
-               <geometry>
-               <box>
-                  <size>.2 .2 .2</size>
-                </box>
-               </geometry>
-            </visual>
-         </link>
         </model>
 
     

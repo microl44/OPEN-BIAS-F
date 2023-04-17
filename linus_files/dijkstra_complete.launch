@@ -37,7 +37,7 @@
     <param name="map_type" type="string" value="complete"/>
   </node>
 
-  <group if="$(eval arg('models') != 'static')">
+  <group if="$(eval arg('models') == 1)">
     <node pkg="model_node" type="model_node" name="model_node_1" output="screen">
       <param name="model_name" value="box_1"/>
       <param name="direction" value="up/down"/>
@@ -46,6 +46,12 @@
   </group>
 
   <group if="$(eval arg('models') == 2)">
+    <node pkg="model_node" type="model_node" name="model_node_1" output="screen">
+      <param name="model_name" value="box_1"/>
+      <param name="direction" value="up/down"/>
+      <param name="distance" value="5.5"/>
+    </node>
+
     <node pkg="model_node" type="model_node" name="model_node_2" output="screen">
       <param name="model_name" value="box_2"/>
       <param name="direction" value="down/up"/>
@@ -54,6 +60,12 @@
   </group>
 
   <group if="$(eval arg('models') == 3)">
+    <node pkg="model_node" type="model_node" name="model_node_1" output="screen">
+      <param name="model_name" value="box_1"/>
+      <param name="direction" value="up/down"/>
+      <param name="distance" value="5.5"/>
+    </node>
+
     <node pkg="model_node" type="model_node" name="model_node_2" output="screen">
       <param name="model_name" value="box_2"/>
       <param name="direction" value="down/up"/>

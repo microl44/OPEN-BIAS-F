@@ -9,7 +9,7 @@
       <real_time_update_rate>1000</real_time_update_rate>
     </physics>
 
-    <model name="box_1">
+    <!-- <model name="box_1">
          <static>1</static>
          <pose frame=''>-3.7 -2.5 0.1 0 0 0</pose>
          <link name="box_link">
@@ -28,7 +28,14 @@
                </geometry>
             </visual>
          </link>
-        </model>
+        </model> -->
+
+        <model name="box_1">
+        <include>
+            <uri>model://aws_robomaker_warehouse_ClutteringC_02</uri>
+        </include>
+        <pose frame=''>-3.7 -2.5 0.1 0 0 0</pose>
+	</model>
 
     
         <!--model name="aws_robomaker_warehouse_RoofB_01_001">

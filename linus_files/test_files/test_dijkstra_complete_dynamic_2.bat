@@ -3,7 +3,7 @@ cls
 Set Sleep=0
 :start
 if %Sleep% == 20 ( goto end )
-roslaunch ..\dijkstra_complete.launch models:=2
+roslaunch ..\main.launch models:=2
 echo Finished the test launch file
 Set /A Sleep+=1
 echo %Sleep%
