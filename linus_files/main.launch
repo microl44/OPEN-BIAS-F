@@ -37,11 +37,11 @@
     </include>
 
     <node pkg="experiment_node" type="experiment_node" name="experiment_node" output="screen" required="true">
-    <param name="algorithm" type="string" value="dijkstra" />
+    <param name="algorithm" type="string" value="$(arg algtype)" />
     <param name="goal_x" type="double" value="-4.57"/>
     <param name="goal_y" type="double" value="-7.22"/>
     <param name="env_type" type="string" value="$(arg models)"/>
-    <param name="map_type" type="string" value="mapless"/>
+    <param name="map_type" type="string" value="$(arg maptype)"/>
     </node>
   </group>
 
