@@ -69,7 +69,7 @@ for algorithm in time_dict:
 #present graphs regarding distance
 def GraphDistance():
 	plotX = [1, 2, 3, 4]
-	ylim = [14, 24]
+	ylim = [14, 26]
 	MD = [avg(distance_dict["dijkstra"]["complete"]["static"]), avg(distance_dict["dijkstra"]["complete"]["1"]), avg(distance_dict["dijkstra"]["complete"]["2"]), avg(distance_dict["dijkstra"]["complete"]["3"])]
 	MA = [avg(distance_dict["a-star"]["complete"]["static"]), avg(distance_dict["a-star"]["complete"]["1"]), avg(distance_dict["a-star"]["complete"]["2"]), avg(distance_dict["a-star"]["complete"]["3"])]
 	UD = [avg(distance_dict["dijkstra"]["mapless"]["static"]), avg(distance_dict["dijkstra"]["mapless"]["1"]), avg(distance_dict["dijkstra"]["mapless"]["2"]), avg(distance_dict["dijkstra"]["mapless"]["3"])]
@@ -106,18 +106,92 @@ def GraphTime():
 
 	fig, axs = plt.subplots(2, 2)
 	fig.suptitle('Results: Time (s)')
-	axs[0,0].bar(plotX, MD, width=0.3, color=['red', 'green', 'blue', 'black'])
+	axs[0,0].bar(plotX, MT, width=0.3, color=['red', 'green', 'blue', 'black'])
 	axs[0,0].set_title("Mapped Dijkstra")
 	axs[0,0].set_ylim(ylim)
-	axs[0,1].bar(plotX, UD, width=0.3, color=['red', 'green', 'blue', 'black'])
+	axs[0,1].bar(plotX, MD, width=0.3, color=['red', 'green', 'blue', 'black'])
 	axs[0,1].set_title("Unmapped Dijkstra")
 	axs[0,1].set_ylim(ylim)
-	axs[1,0].bar(plotX, MA, width=0.3, color=['red', 'green', 'blue', 'black'])
+	axs[1,0].bar(plotX, UT, width=0.3, color=['red', 'green', 'blue', 'black'])
 	axs[1,0].set_title("Mapped A-STAR")
 	axs[1,0].set_ylim(ylim)
-	axs[1,1].bar(plotX, UA, width=0.3, color=['red', 'green', 'blue', 'black'])
+	axs[1,1].bar(plotX, UD, width=0.3, color=['red', 'green', 'blue', 'black'])
 	axs[1,1].set_title("Unmapped A-STAR")
 	axs[1,1].set_ylim(ylim)
+
+	plt.setp(axs, xticks=[1, 2, 3, 4], xticklabels=plotLabels)
+	plt.show()
+
+def GraphDijkstra():
+	plotX = [1, 2, 3, 4]
+	ylimT = [80, 150]
+	ylimD = [14, 26]
+
+	MT = [avg(time_dict["dijkstra"]["complete"]["static"]), avg(time_dict["dijkstra"]["complete"]["1"]), 
+	avg(time_dict["dijkstra"]["complete"]["2"]), avg(time_dict["dijkstra"]["complete"]["3"])]
+
+	MD = [avg(distance_dict["dijkstra"]["complete"]["static"]), avg(distance_dict["dijkstra"]["complete"]["1"]), 
+	avg(distance_dict["dijkstra"]["complete"]["2"]), avg(distance_dict["dijkstra"]["complete"]["3"])]
+
+	UT = [avg(time_dict["dijkstra"]["mapless"]["static"]), avg(time_dict["dijkstra"]["mapless"]["1"]), 
+	avg(time_dict["dijkstra"]["mapless"]["2"]), avg(time_dict["dijkstra"]["mapless"]["3"])]
+
+	UD = [avg(distance_dict["dijkstra"]["mapless"]["static"]), avg(distance_dict["dijkstra"]["mapless"]["1"]), 
+	avg(distance_dict["dijkstra"]["mapless"]["2"]), avg(distance_dict["dijkstra"]["mapless"]["3"])]
+
+	plotLabels = ["Static", "Low", "Medium", "High"]
+
+	fig, axs = plt.subplots(2, 2)
+	fig.suptitle('Results')
+	axs[0,0].bar(plotX, MT, width=0.3, color=['red', 'green', 'blue', 'black'])
+	axs[0,0].set_title("Mapped Dijkstra time")
+	axs[0,0].set_ylim(ylimT)
+	axs[0,1].bar(plotX, MD, width=0.3, color=['red', 'green', 'blue', 'black'])
+	axs[0,1].set_title("Mapped Dijkstra distance")
+	axs[0,1].set_ylim(ylimD)
+	axs[1,0].bar(plotX, UT, width=0.3, color=['red', 'green', 'blue', 'black'])
+	axs[1,0].set_title("Unmapped Dijkstra time")
+	axs[1,0].set_ylim(ylimT)
+	axs[1,1].bar(plotX, UD, width=0.3, color=['red', 'green', 'blue', 'black'])
+	axs[1,1].set_title("Unmapped Dijkstra distance")
+	axs[1,1].set_ylim(ylimD)
+
+	plt.setp(axs, xticks=[1, 2, 3, 4], xticklabels=plotLabels)
+	plt.show()
+
+def GraphAStar():
+	plotX = [1, 2, 3, 4]
+	ylimT = [80, 150]
+	ylimD = [14, 26]
+	
+	MT = [avg(time_dict["a-star"]["complete"]["static"]), avg(time_dict["a-star"]["complete"]["1"]), 
+	avg(time_dict["a-star"]["complete"]["2"]), avg(time_dict["a-star"]["complete"]["3"])]
+
+	MD = [avg(distance_dict["a-star"]["complete"]["static"]), avg(distance_dict["a-star"]["complete"]["1"]), 
+	avg(distance_dict["a-star"]["complete"]["2"]), avg(distance_dict["a-star"]["complete"]["3"])]
+
+	UT = [avg(time_dict["a-star"]["mapless"]["static"]), avg(time_dict["a-star"]["mapless"]["1"]), 
+	avg(time_dict["a-star"]["mapless"]["2"]), avg(time_dict["a-star"]["mapless"]["3"])]
+
+	UD = [avg(distance_dict["a-star"]["mapless"]["static"]), avg(distance_dict["a-star"]["mapless"]["1"]), 
+	avg(distance_dict["a-star"]["mapless"]["2"]), avg(distance_dict["a-star"]["mapless"]["3"])]
+
+	plotLabels = ["Static", "Low", "Medium", "High"]
+
+	fig, axs = plt.subplots(2, 2)
+	fig.suptitle('Results')
+	axs[0,0].bar(plotX, MT, width=0.3, color=['red', 'green', 'blue', 'black'])
+	axs[0,0].set_title("Mapped A-STAR time")
+	axs[0,0].set_ylim(ylimT)
+	axs[0,1].bar(plotX, MD, width=0.3, color=['red', 'green', 'blue', 'black'])
+	axs[0,1].set_title("Mapped A-STAR distance")
+	axs[0,1].set_ylim(ylimD)
+	axs[1,0].bar(plotX, UT, width=0.3, color=['red', 'green', 'blue', 'black'])
+	axs[1,0].set_title("Unmapped A-STAR time")
+	axs[1,0].set_ylim(ylimT)
+	axs[1,1].bar(plotX, UD, width=0.3, color=['red', 'green', 'blue', 'black'])
+	axs[1,1].set_title("Unmapped A-STAR distance")
+	axs[1,1].set_ylim(ylimD)
 
 	plt.setp(axs, xticks=[1, 2, 3, 4], xticklabels=plotLabels)
 	plt.show()
@@ -157,9 +231,14 @@ def printBothStats():
 				print("Distance CNF: " + str(confidence_interval_distance_dict[algorithm][map_value][environment]))
 				print("")
 
+def printBothStatsPerAlgorithm():
+	print("hello")
+
 #COMMENT OUT THE FUNCTION YOU'D LIKE TO USE!!!!!!!
 #printTimeStats()
 #printDistanceStats()
-printBothStats()
-GraphTime()
-GraphDistance()
+#printBothStats()
+#GraphTime()
+#GraphDistance()
+GraphDijkstra()
+GraphAStar()
